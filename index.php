@@ -1,3 +1,3 @@
 <?php
-require 'admin/template/index.php';
+require 'template/index.php';
 ?>
