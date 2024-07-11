@@ -71,7 +71,7 @@ if (isset($_GET['selectedProducts'])) {
                                             <h5 class="font-size-16 mb-1">Địa chỉ giao hàng</h5>
                                             <p class="text-muted text-truncate mb-4">Sed ut perspiciatis unde omnis iste</p>
                                             <div class="mb-3">
-                                                <form method="POST">
+                                                <form id="check_out" method="POST">
                                                     <div>
                                                         <div class="row">
                                                             <div class="col-lg-4">
@@ -83,7 +83,7 @@ if (isset($_GET['selectedProducts'])) {
                                                             <div class="col-lg-4">
                                                                 <div class="mb-3">
                                                                     <label class="form-label" for="billing-email-address">Email Address</label>
-                                                                    <input type="email" class="form-control" id="billing-email-address" placeholder="Enter email">
+                                                                    <input type="email" class="form-control" name="email" id="billing-email-address" placeholder="Enter email">
                                                                 </div>
                                                             </div>
                                                             <div class="col-lg-4">
@@ -148,24 +148,39 @@ if (isset($_GET['selectedProducts'])) {
                                         <div>
                                             <h5 class="font-size-14 mb-3">Payment method :</h5>
                                             <div class="row">
-                                                <?php
-                                                foreach ($Paymethod as $key => $item) {
-                                                ?>
-                                                    <div class="col-lg-3 col-sm-6">
-                                                        <div data-bs-toggle="collapse">
-                                                            <label class="card-radio-label">
-                                                                <input type="radio" name="pay-method" id="<?php echo $item['Id'] ?>" class="card-radio-input">
-                                                                <span class="card-radio py-3 text-center text-truncate">
-                                                                    <img style="height: 40px;" src="assets/img/<?php echo $item['Img'] ?>" alt="">
-                                                                </span>
-                                                            </label>
-                                                        </div>
+                                                <div class="col-lg-3 col-sm-6">
+                                                    <div data-bs-toggle="collapse">
+                                                        <label class="card-radio-label">
+                                                            <input type="radio" name="pay-method" id="1" class="card-radio-input">
+                                                            <span class="card-radio py-3 text-center text-truncate">
+                                                                <img style="height: 40px;" src="assets/img/payment_1.webp" alt="">
+                                                            </span>
+                                                        </label>
                                                     </div>
-                                                <?php
-                                                }
-                                                ?>
+                                                </div>
+                                                <div class="col-lg-3 col-sm-6">
+                                                    <div data-bs-toggle="collapse">
+                                                        <label class="card-radio-label">
+                                                            <input type="radio" name="pay-method" id="2" class="card-radio-input">
+                                                            <span class="card-radio py-3 text-center text-truncate">
+                                                                <img style="height: 40px;" src="assets/img/payment_2.webp" alt="">
+                                                            </span>
+                                                        </label>
+                                                    </div>
+                                                </div>
+                                                <div class="col-lg-3 col-sm-6">
+                                                    <div data-bs-toggle="collapse">
+                                                        <label class="card-radio-label">
+                                                            <input type="radio" name="pay-method" id="3" class="card-radio-input">
+                                                            <span class="card-radio py-3 text-center text-truncate">
+                                                                <img style="height: 40px;" src="assets/img/payment_3.webp" alt="">
+                                                            </span>
+                                                        </label>
+                                                    </div>
+                                                </div>
                                             </div>
                                         </div>
+
                                     </div>
                                 </li>
                             </ol>
@@ -177,15 +192,18 @@ if (isset($_GET['selectedProducts'])) {
                             <a href="cart.php" class="btn btn-link text-muted">
                                 &nbsp;
                                 <i class="fa-solid fa-angle-left"></i>
-                                &nbsp; Continue Cart </a>
+                                &nbsp; Continue Cart
+                            </a>
                         </div> <!-- end col -->
                         <div class="col">
                             <div class="text-end mt-2 mt-sm-0">
-                                <a href="#" class="btn btn-success btn-checkout">
-                                    <i class="fa-solid fa-cart-shopping"></i> Thanh toán </a>
+                                <button id="btn-checkout" class="btn btn-success btn-checkout" disabled>
+                                    <i class="fa-solid fa-cart-shopping"></i> Thanh toán
+                                </button>
                             </div>
                         </div>
                     </div>
+
                 </div>
                 <div class="col-xl-5">
                     <div class="card checkout-order-summary">
@@ -204,10 +222,10 @@ if (isset($_GET['selectedProducts'])) {
                                     </thead>
                                     <tbody>
                                         <?php
-                                        $totla = 0;
+                                        $total = 0;
                                         $count = 0;
                                         foreach ($selectedProducts as $key => $product) {
-                                            $totla += $product->price2;
+                                            $total += $product->price2;
                                             $count += 1;
                                         ?>
                                             <tr>
@@ -234,8 +252,8 @@ if (isset($_GET['selectedProducts'])) {
                                             <td colspan="2">
                                                 <h5 class="font-size-14 m-0">Total:</h5>
                                             </td>
-                                            <td>
-                                                <?php echo $totla;  ?>.000 đ
+                                            <td id="total">
+                                                <?php echo $total;  ?>.000 đ
                                             </td>
                                         </tr>
                                     </tbody>
@@ -250,8 +268,8 @@ if (isset($_GET['selectedProducts'])) {
 
         </div>
         <div id="pay-loading" class="title-pay hidden">
-            <div  class="dot-spinner ">
-                
+            <div class="dot-spinner ">
+
                 <div class="dot-spinner__dot"></div>
                 <div class="dot-spinner__dot"></div>
                 <div class="dot-spinner__dot"></div>
@@ -262,8 +280,8 @@ if (isset($_GET['selectedProducts'])) {
                 <div class="dot-spinner__dot"></div>
             </div>
             <div class="title-loading">
-                    <h4>Đang xử lý</h4>
-                </div>
+                <h4>Đang xử lý</h4>
+            </div>
         </div>
 
     </div>
@@ -271,13 +289,6 @@ if (isset($_GET['selectedProducts'])) {
     <script src="assets/js/jquery-3.6.0.min.js"></script>
     <script src="assets/bootstrap-5.3.3-dist/js/bootstrap.min.js"></script>
     <script src="assets/fontawesome/js/all.min.js"></script>
-    <script>
-        document.addEventListener("DOMContentLoaded", function() {
-            // Gắn sự kiện click cho nút "Thanh toán"
-            var paymentBtn = document.querySelector(".btn-checkout");
-            paymentBtn.addEventListener("click", processPayment);
-        });
-    </script>
     <script>
         var provinceSelect = document.getElementById('province-select');
         var districtSelect = document.getElementById('district-select');
@@ -359,14 +370,43 @@ if (isset($_GET['selectedProducts'])) {
             var day = String(today.getDate()).padStart(2, '0');
             return year + '-' + month + '-' + day;
         }
+        // Hàm tạo mã hóa đơn ngẫu nhiên
+        function generateInvoiceCode(length) {
+            var characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
+            var code = '';
+            for (var i = 0; i < length; i++) {
+                var randomIndex = Math.floor(Math.random() * characters.length);
+                code += characters.charAt(randomIndex);
+            }
+            return code;
+        }
+        // Lấy thông tin từ các trường nhập liệu
+        var billingName = document.getElementById('billing-name').value;
+        var billingEmail = document.getElementById('billing-email-address').value;
+        var billingPhone = document.getElementById('billing-phone').value;
 
-        // Thay đổi giá trị của trường "Ngày tạo hóa đơn" thành ngày hiện tại
-        function processPayment() {
-            var payloading = document.getElementById('pay-loading');
-            var opacity = document.getElementById('opacity');
-            opacity.classList.toggle('hidden');
-            payloading.classList.remove('hidden');
+        var selectedProvince = provinceSelect.options[provinceSelect.selectedIndex].text;
+        var selectedDistrict = districtSelect.options[districtSelect.selectedIndex].text;
+        var selectedWard = wardSelect.options[wardSelect.selectedIndex].text;
+        var billingAddress = document.getElementById('billing-address').value;
+        var fullAddress = billingAddress + ", " + selectedWard + ", " + selectedDistrict + ", " + selectedProvince;
 
+        // Lấy tất cả các input radio của phương thức thanh toán
+        var paymentMethods = document.querySelectorAll('input[name="pay-method"]');
+
+        // Lấy nút "Thanh toán"
+        var checkoutButton = document.getElementById('btn-checkout');
+
+        // Gán sự kiện thay đổi cho từng radio button
+        paymentMethods.forEach(function(paymentMethod) {
+            paymentMethod.addEventListener('change', function() {
+                checkoutButton.disabled = false; // Kích hoạt nút "Thanh toán" khi chọn phương thức thanh toán
+            });
+        });
+
+        const selectedProducts = [];
+        checkoutButton.addEventListener('click', function(event) {
+            event.preventDefault(); // Ngăn chặn hành vi mặc định của thẻ <a>
             // Lấy thông tin từ các trường nhập liệu
             var billingName = document.getElementById('billing-name').value;
             var billingEmail = document.getElementById('billing-email-address').value;
@@ -375,18 +415,109 @@ if (isset($_GET['selectedProducts'])) {
             var selectedDistrict = districtSelect.options[districtSelect.selectedIndex].text;
             var selectedWard = wardSelect.options[wardSelect.selectedIndex].text;
             var billingAddress = document.getElementById('billing-address').value;
-            // Chuỗi ký tự có thể chứa trong mã hóa đơn
-            var characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
+            var fullAddress = billingAddress + ", " + selectedWard + ", " + selectedDistrict + ", " + selectedProvince;
 
-            // Hàm tạo mã hóa đơn ngẫu nhiên
-            function generateInvoiceCode(length) {
-                var code = '';
-                for (var i = 0; i < length; i++) {
-                    var randomIndex = Math.floor(Math.random() * characters.length);
-                    code += characters.charAt(randomIndex);
-                }
-                return code;
+
+
+            // Tạo đối tượng invoice
+            const invoice = {
+                code: generateInvoiceCode(20), // Tạo mã hóa đơn ngẫu nhiên
+                username: billingName,
+                date: getCurrentDate(),
+                phone: billingPhone,
+                email: billingEmail,
+                address: fullAddress,
+                userId: <?php echo $userId ?>,
+                total: <?php echo $total; ?>,
+                paymethodId: getSelectedPaymentMethod(),
+                quantity: <?php echo $count; ?>,
+                status: 1
+            };
+
+            // Thêm đối tượng invoice vào mảng selectedProducts
+            selectedProducts.push(invoice);
+
+            // Vòng lặp để tạo và thêm các đối tượng invoiceDetail vào mảng selectedProducts
+            <?php foreach ($selectedProducts as $key => $product) { ?>
+                var invoiceDetail; // Reset biến invoiceDetail
+
+                invoiceDetail = {
+                    parent_code: invoice.code,
+                    bookId: <?php echo $product->id ?>,
+                    userId: <?php echo $userId; ?>,
+                    price: <?php echo $product->price2 ?>,
+                    quantity: <?php echo $product->quantity ?>,
+                    orderStatusId: 1,
+                    status: 1
+                };
+
+                selectedProducts.push(invoiceDetail);
+            <?php } ?>
+
+            // Chuyển đổi selectedProducts thành chuỗi JSON để truyền qua URL
+            const selectedProductsJSON = JSON.stringify(selectedProducts);
+
+            // Lựa chọn phương thức thanh toán
+            if (document.getElementById('1').checked) {
+                sendOtpAndRedirect();
+            } else if (document.getElementById('2').checked) {
+                // Chuyển hướng đến trang VNPAY và truyền selectedProducts qua URL
+                window.location.href = 'index.php?template=checkout/vnpay_checkout&selectedProducts=' + encodeURIComponent(selectedProductsJSON);
+            } else if (document.getElementById('3').checked) {
+                window.location.href = 'payment_method_3_url.php'; // Đường dẫn đến trang thanh toán 3
+            } else {
+                alert('Vui lòng chọn phương thức thanh toán.'); // Thông báo nếu chưa chọn phương thức
             }
+        });
+
+
+        function sendOtpAndRedirect() {
+            var payloading = document.getElementById('pay-loading');
+            var opacity = document.getElementById('opacity');
+            opacity.classList.toggle('hidden');
+            payloading.classList.remove('hidden');
+            const selectedProductsJSON = JSON.stringify(selectedProducts);
+            var formData = $('#check_out').serialize();
+
+            // Gửi email OTP
+            var xhr = new XMLHttpRequest();
+            xhr.open("POST", "API/send_otp.php", true);
+            xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+
+            xhr.onreadystatechange = function() {
+                if (xhr.readyState === 4) {
+                    console.log(xhr.responseText); // In ra phản hồi thô
+
+                    if (xhr.status === 200) {
+                        try {
+                            var response = JSON.parse(xhr.responseText);
+                            if (response.status === "success") {
+                                // Chuyển đến trang thanh toán
+                                window.location.href = 'index.php?template=checkout/otp_checkout&selectedProducts=' + encodeURIComponent(selectedProductsJSON);
+                            } else {
+                                alert("Gửi OTP thất bại. Vui lòng thử lại.");
+                            }
+                        } catch (e) {
+                            console.error("Lỗi khi phân tích JSON:", e);
+                            alert("Đã xảy ra lỗi trong quá trình xử lý yêu cầu. Vui lòng thử lại.");
+                        }
+                    } else {
+                        alert("Gửi OTP thất bại. Vui lòng thử lại.");
+                    }
+                }
+            };
+
+            // Gửi dữ liệu biểu mẫu đã tuần tự hóa
+            xhr.send(formData);
+        }
+        // Thay đổi giá trị của trường "Ngày tạo hóa đơn" thành ngày hiện tại
+        function processPayment() {
+            var payloading = document.getElementById('pay-loading');
+            var opacity = document.getElementById('opacity');
+            opacity.classList.toggle('hidden');
+            payloading.classList.remove('hidden');
+
+            // Chuỗi ký tự có thể chứa trong mã hóa đơn
 
             // Sử dụng hàm generateInvoiceCode để tạo mã hóa đơn có 20 ký tự
             var invoiceCode = generateInvoiceCode(20);
@@ -395,7 +526,7 @@ if (isset($_GET['selectedProducts'])) {
             console.log(billingName);
             console.log(invoiceCode);
             // Tạo invoice
-            var invoice = {
+            const invoice = {
                 code: invoiceCode, // Mã hóa đơn
                 username: billingName, // Tên người dùng
                 date: getCurrentDate(), // Ngày tạo hóa đơn
@@ -403,7 +534,7 @@ if (isset($_GET['selectedProducts'])) {
                 email: billingEmail, // Địa chỉ email
                 address: billingAddress + ", " + selectedWard + ", " + selectedDistrict + ", " + selectedProvince, // Địa chỉ
                 userId: <?php echo $userId ?>, // ID người dùng
-                total: <?php echo $totla;  ?>, // Tổng số tiền
+                total: <?php echo $total;  ?>, // Tổng số tiền
                 paymethodId: getSelectedPaymentMethod(), // ID phương thức thanh toán
                 quantity: <?php echo $count;  ?>, // Số lượng
                 status: 1
@@ -412,14 +543,16 @@ if (isset($_GET['selectedProducts'])) {
             var invoiceDetails = [];
 
             <?php foreach ($selectedProducts as $key => $product) { ?>
-                var invoiceDetail = {
-                    parent_code: invoiceCode, // ID của hóa đơn
-                    bookId: <?php echo $product->id ?>, // ID của sách
-                    userId: <?php echo $userId; ?>, // ID của người dùng
-                    price: <?php echo $product->price2 ?>, // Giá
-                    quantity: <?php echo $product->quantity ?>, // Số lượng
-                    orderStatusId: 1, // ID của trạng thái đơn hàng
-                    status: 1 // Trạng thái
+                var invoiceDetail; // Reset biến invoiceDetail
+
+                invoiceDetail = {
+                    parent_code: invoiceCode,
+                    bookId: <?php echo $product->id ?>,
+                    userId: <?php echo $userId; ?>,
+                    price: <?php echo $product->price2 ?>,
+                    quantity: <?php echo $product->quantity ?>,
+                    orderStatusId: 1,
+                    status: 1
                 };
 
                 // Thêm chi tiết hóa đơn vào mảng

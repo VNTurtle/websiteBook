@@ -123,10 +123,10 @@ $lst_product = DP::run_query($query_lstproduct, $parameters, $resultType)
                                         </button>
                                     </div>
                                     <button class="btn btn-secondary add-new btn-primary" tabindex="0" aria-controls="DataTables_Table_0" type="button">
-                                        <span>
+                                        <a href="index.php?folder=admin&template=product/add_product" style="color: #fff;"> 
                                             <i class="bx bx-plus me-0 me-sm-1"></i>
                                             <span class="d-none d-sm-inline-block">Add Product</span>
-                                        </span>
+                                        </a>
                                     </button>
                                 </div>
                             </div>
@@ -208,12 +208,12 @@ $lst_product = DP::run_query($query_lstproduct, $parameters, $resultType)
                                 <td>
                                     <div class="d-inline-block text-nowrap">
                                         <button class="btn btn-sm btn-icon">
-                                            <a href="index.php?admin/template=product/edit_product&id=<?php echo $lst['Id'] ?>">
+                                            <a href="index.php?folder=admin&template=product/edit_product&id=<?php echo $lst['Id'] ?>">
                                                 <i class="bx bx-edit"></i>
                                             </a>                                         
                                         </button>
                                         <button class="btn btn-sm btn-icon">
-                                            <a href="index.php?admin/template=product/product_detail&id=<?php echo $lst['Id'] ?>">
+                                            <a href="index.php?folder=admin&template=product/product_detail&id=<?php echo $lst['Id'] ?>">
                                                 <i class="bx bx-show"></i>
                                             </a>                                   
                                         </button>

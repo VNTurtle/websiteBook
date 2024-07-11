@@ -111,12 +111,12 @@ if ($modelbook[0]['Model'] != null) {
             else{
             ?>
             <button id="add_model" class="btn btn-primary" style="margin: 1rem auto;">
-                <a href="index.php?admin/template=model/add_model_product&id=<?php echo $bookId ?>" style="color: #fff;">
+                <a href="index.php?folder=admin&template=model/add_model_product&id=<?php echo $bookId ?>" style="color: #fff;">
                     Thêm model
                 </a>
             </button>
             <button id="Edit_model" class="btn btn-primary" style="margin: 1rem auto;">
-                <a href="index.php?admin/template=model/add_modelIMG_product&id=<?php echo $bookId ?>" style="color: #fff;">
+                <a href="index.php?folder=admin&template=model/add_modelIMG_product&id=<?php echo $bookId ?>" style="color: #fff;">
                     Thêm model IMG
                 </a>
             </button>

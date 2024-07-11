@@ -236,6 +236,12 @@ if ($book[0]['Model'] != null) {
 
                 </div>
             </div>
+            <div class="edit_product">
+                <button class="btn btn-primary">
+                    <a href="index.php?folder=admin&template=product/edit_product&id=<?= $bookId ?>"
+                    style="color: #fff;">Chỉnh sửa</a>
+                </button>
+            </div>
         </div>
     </div>
 </div>

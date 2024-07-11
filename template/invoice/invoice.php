@@ -4,7 +4,7 @@ $userId = $_SESSION['Id'];
 $queryOrder = "SELECT * FROM `orderstatus` WHERE 1";
 $OrderStatus = DP::run_query($queryOrder, $parameters, $resultType);
 
-$queryInvoiceDT = "SELECT ivd.*, b.*, i.Path
+$queryInvoiceDT = "SELECT ivd.*, b.Name,b.Price, i.Path
 FROM invoicedetail ivd
 JOIN book b ON ivd.BookId = b.Id
 LEFT JOIN `image` i ON b.Id = i.BookId
@@ -12,7 +12,7 @@ WHERE  i.Id = (
                 SELECT MIN(i2.Id)
                 FROM `image` i2
                 WHERE i2.BookId = b.Id
-            ) AND ivd.UserId = 1";
+            ) AND ivd.UserId = $userId";
 $InvoiceDT = DP::run_query($queryInvoiceDT, $parameters, $resultType);
 ?>
 <link rel="stylesheet" href="assets/css/invoice.css">
@@ -73,7 +73,7 @@ $InvoiceDT = DP::run_query($queryInvoiceDT, $parameters, $resultType);
                                                             </div>
                                                         </div>
                                                         <div class="grid3">
-                                                            <button class="btn-received" type="button">Hủy đơn</button>
+                                                            <button class="btn-cancel-order btn-received" type="button" data-order-id="'. $lst_invoiceDetail['Id'] .'">Hủy đơn</button>
                                                         </div>
                                                     </div>
                                                 </div>

@@ -43,7 +43,7 @@ require_once('template/layout/layout.php');
                 </div>
                 <div class="col-lg-3">
                     <a href="/" class="logo" title="Logo">
-                        <img class="Logo-header" src="assets/img/logo-bookstore.jpg" alt="Logo">
+                        <img class="Logo-header" src="assets/img/logo-bookstore-header.jpg" alt="Logo">
                     </a>
                 </div>
                 <form class="col-lg-4 search-header" method="get" action="index.php?template/product=search.">
@@ -120,7 +120,7 @@ require_once('template/layout/layout.php');
                         <ul class="item-big">
                             <li>
                                 <a href="index.php" class="logo-sitenav d-block d-lg-none">
-                                    <img src="assets/img/logo-bookstore.jpg" width="172" height="50" alt="">
+                                    <img src="assets/img/logo-bookstore-header.jpg" width="172" height="50" alt="">
                                 </a>
                             </li>
                             <li class="d-lg-none d-block account-mb">

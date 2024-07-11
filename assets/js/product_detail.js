@@ -267,3 +267,41 @@ if(binName!=null){
             window.location.href = 'index.php?template=checkout/checkout&selectedProducts=' + encodeURIComponent(selectedProductsJSON);
         }
     });
+
+    document.addEventListener("DOMContentLoaded", function() {
+        var decreaseButton = document.getElementById('btn-decrease');
+        var increaseButton = document.getElementById('btn-increase');
+        var quantityInput = document.getElementById('quantityBook');
+        var maxStock = parseInt(quantityInput.getAttribute('max'));
+    
+        decreaseButton.addEventListener('click', function() {
+            var currentValue = parseInt(quantityInput.value);
+            if (currentValue > 1) {
+                quantityInput.value = currentValue - 1;
+            }
+        });
+    
+        increaseButton.addEventListener('click', function() {
+            var currentValue = parseInt(quantityInput.value);
+            if (currentValue < maxStock) {
+                quantityInput.value = currentValue + 1;
+            }
+        });
+    
+        quantityInput.addEventListener('input', function() {
+            // Ensure only numbers are inputted
+            this.value = this.value.replace(/[^0-9]/g, '');
+            var currentValue = parseInt(this.value);
+            // Ensure value does not exceed max
+            if (currentValue > maxStock) {
+                this.value = maxStock;
+            }
+        });
+    
+        quantityInput.addEventListener('blur', function() {
+            // Ensure value is at least 1
+            if (this.value === '' || parseInt(this.value) < 1) {
+                this.value = 1;
+            }
+        });
+    });

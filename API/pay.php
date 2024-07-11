@@ -2,41 +2,54 @@
 header('Content-Type: application/json');
 require_once('db.php');
 session_start();
+if (isset($_POST['number1']) && isset($_POST['number2']) && isset($_POST['number3']) && isset($_POST['number4'])) {
+$invoice = json_decode($_POST['invoice'], true);
+$invoiceDetails = json_decode($_POST['invoiceDetails'], true);
+$number1=$_POST['number1'];
+$number2=$_POST['number2'];
+$number3=$_POST['number3'];
+$number4=$_POST['number4'];
+$enteredOTP = $number1 . $number2 . $number3 . $number4;
 
-$data = json_decode(file_get_contents('php://input'), true);
+$otpFromSession = $_SESSION["OTP"];
+    if ($enteredOTP == $otpFromSession) {
 
-if (json_last_error() !== JSON_ERROR_NONE) {
-    echo json_encode(["status" => "error", "message" => "Invalid JSON input: " . json_last_error_msg()]);
-    exit;
-}
-
-$invoice = $data['invoice'];
-$invoiceDetails = $data['invoiceDetails']; // This should be an array of invoice details
-
-// Insert invoice
-$queryInvoice = "INSERT INTO `invoice` (`Code`, `Username`, `IssuedDate`, `ShippingAddress`, `ShippingPhone`, `ShippingEmail`, `UserId`, `Total`, `PaymethodId`, `Quantity`, `Status`) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
-$parameters = [$invoice['code'], $invoice['username'], $invoice['date'], $invoice['address'], $invoice['phone'], $invoice['email'], $invoice['userId'], $invoice['total'], $invoice['paymethodId'], $invoice['quantity'], $invoice['status']];
-$ISInvoice = DP::run_query($queryInvoice, $parameters, 1); // 1: Không cần lấy kết quả trả về, chỉ cần số hàng bị ảnh hưởng
-
-if ($ISInvoice > 0) {
-    $queryInvoiceDetail = "INSERT INTO `invoicedetail` (`Parent_code`, `BookId`, `UserId`, `UnitPrice`, `Quantity`, `OrderStatusId`, `Status`) VALUES (?, ?, ?, ?, ?, ?, ?)";
+        unset($_SESSION["OTP"]);
+        $queryInvoice = "INSERT INTO `invoice` (`Code`, `Username`, `IssuedDate`, `ShippingAddress`, `ShippingPhone`, `ShippingEmail`, `UserId`, `Total`, `PaymethodId`, `Quantity`, `Status`) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+        $parameters = [$invoice['code'], $invoice['username'], $invoice['date'], $invoice['address'], $invoice['phone'], $invoice['email'], $invoice['userId'], $invoice['total'], $invoice['paymethodId'], $invoice['quantity'], $invoice['status']];
+        $ISInvoice = DP::run_query($queryInvoice, $parameters, 1);
     
-    foreach ($invoiceDetails as $invoiceDetail) {
-        $parameters = [$invoiceDetail['parent_code'], $invoiceDetail['bookId'], $invoiceDetail['userId'], $invoiceDetail['price'], $invoiceDetail['quantity'], $invoiceDetail['orderStatusId'], $invoiceDetail['status']];
-        $ISInvoiceDetail = DP::run_query($queryInvoiceDetail, $parameters, 1);
-
-        if ($ISInvoiceDetail <= 0) {
-            echo json_encode(["status" => "error", "message" => "Failed to insert invoice detail."]);
-            exit;
-        } else {
-            $queryDeleteCart = "DELETE c FROM `cart` AS c WHERE c.`UserId` = ? AND c.`BookId` = ?";
-            $parameters = [$invoiceDetail['userId'], $invoiceDetail['bookId']];
-            DP::run_query($queryDeleteCart, $parameters, 1);
+        
+        if ($ISInvoice > 0) {
+        $queryInvoiceDetail = "INSERT INTO `invoicedetail` (`Parent_code`, `BookId`, `UserId`, `UnitPrice`, `Quantity`, `OrderStatusId`, `Status`) VALUES (?, ?, ?, ?, ?, ?, ?)";
+        
+        foreach ($invoiceDetails as $invoiceDetail) {
+            $parameters = [$invoiceDetail['parent_code'], $invoiceDetail['bookId'], $invoiceDetail['userId'], $invoiceDetail['price'], $invoiceDetail['quantity'], $invoiceDetail['orderStatusId'], $invoiceDetail['status']];
+            $ISInvoiceDetail = DP::run_query($queryInvoiceDetail, $parameters, 1);
+    
+            if ($ISInvoiceDetail <= 0) {
+                echo json_encode(["status" => "error", "message" => "Failed to insert invoice detail."]);
+                exit;
+            } else {
+                $queryDeleteCart = "DELETE c FROM `cart` AS c WHERE c.`UserId` = ? AND c.`BookId` = ?";
+                $parameters = [$invoiceDetail['userId'], $invoiceDetail['bookId']];
+                DP::run_query($queryDeleteCart, $parameters, 1);
+            }
         }
+        }
+        $response['status'] = 'success';
+        
     }
-
-    echo json_encode(["status" => "success"]);
-} else {
-    echo json_encode(["status" => "error", "message" => "Failed to insert invoice."]);
+    else {
+        // Xác minh thất bại
+        $response['status'] = 'error';
+        $response['message'] = 'Invalid OTP. Please try again.';
+    }
+}else {
+    // Nếu thiếu dữ liệu nhập từ form, trả về thông báo lỗi
+    $response['status'] = 'error';
+    $response['message'] = 'Incomplete data received.';
 }
+
+echo json_encode($response);
 ?>

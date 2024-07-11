@@ -271,3 +271,9 @@
 .noidung h4{
     font-weight: 700;
 }
+
+.edit_product{
+    display: flex;
+    justify-content: center;
+    margin-top: 2rem;
+}

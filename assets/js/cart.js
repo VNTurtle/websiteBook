@@ -1,3 +1,53 @@
+$(document).ready(function() {
+    function updateTotalPrice(element) {
+        var parent = element.closest('.item-book-cart');
+        var price = parseFloat(parent.data('price'));
+        var quantity = parseInt(parent.find('.prd-quantity').val());
+        var totalPriceElement = parent.find('.total-price');
+        var totalPrice = price * quantity;
+        totalPriceElement.text(totalPrice + '.000đ');
+    }
+
+    $('.input-number-product .num-1').on('click', function() {
+        var quantityInput = $(this).siblings('.prd-quantity');
+        var currentValue = parseInt(quantityInput.val());
+        if (currentValue > 1) {
+            quantityInput.val(currentValue - 1);
+            updateTotalPrice($(this));
+        }
+    });
+
+    $('.input-number-product .num-2').on('click', function() {
+        var quantityInput = $(this).siblings('.prd-quantity');
+        var maxStock = parseInt(quantityInput.data('max'));
+        var currentValue = parseInt(quantityInput.val());
+        if (currentValue < maxStock) {
+            quantityInput.val(currentValue + 1);
+            updateTotalPrice($(this));
+        }
+    });
+
+    $('.prd-quantity').on('input', function() {
+        var maxStock = parseInt($(this).data('max'));
+        var value = $(this).val().replace(/[^0-9]/g, '');
+        $(this).val(value);
+
+        var currentValue = parseInt(value);
+        if (currentValue > maxStock) {
+            $(this).val(maxStock);
+        }
+        updateTotalPrice($(this));
+    });
+
+    $('.prd-quantity').on('blur', function() {
+        var currentValue = parseInt($(this).val());
+        if (isNaN(currentValue) || currentValue < 1) {
+            $(this).val(1);
+        }
+        updateTotalPrice($(this));
+    });
+});
+
 document.addEventListener('DOMContentLoaded', function() {
     const checkboxAll = document.getElementById('checkbox-all-products');
     const checkboxes = document.querySelectorAll('.checkbox-add-cart');

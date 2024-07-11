@@ -85,54 +85,10 @@ require_once('API/db.php');
                 <ul class="menu-inner py-1">
                   <!-- Dashboards -->
                   <li class="menu-item active open">
-                    <a href="javascript:void(0);" class="menu-link menu-toggle">
+                    <a href="" class="menu-link menu-toggle">
                       <i class="menu-icon tf-icons bx bx-home-circle"></i>
                       <div data-i18n="Dashboards">Dashboards</div>
-                      <div class="badge bg-danger rounded-pill ms-auto">5</div>
                     </a>
-                    <ul class="menu-sub">
-                      <li class="menu-item">
-                        <a
-                          href="https://demos.themeselection.com/sneat-bootstrap-html-admin-template/html/vertical-menu-template/dashboards-crm.html"
-                          target="_blank"
-                          class="menu-link">
-                          <div data-i18n="CRM">CRM</div>
-                          <div class="badge bg-label-primary fs-tiny rounded-pill ms-auto">Pro</div>
-                        </a>
-                      </li>
-                      <li class="menu-item active">
-                        <a href="index.html" class="menu-link">
-                          <div data-i18n="Analytics">Analytics</div>
-                        </a>
-                      </li>
-                      <li class="menu-item">
-                        <a
-                          href="https://demos.themeselection.com/sneat-bootstrap-html-admin-template/html/vertical-menu-template/app-ecommerce-dashboard.html"
-                          target="_blank"
-                          class="menu-link">
-                          <div data-i18n="eCommerce">eCommerce</div>
-                          <div class="badge bg-label-primary fs-tiny rounded-pill ms-auto">Pro</div>
-                        </a>
-                      </li>
-                      <li class="menu-item">
-                        <a
-                          href="https://demos.themeselection.com/sneat-bootstrap-html-admin-template/html/vertical-menu-template/app-logistics-dashboard.html"
-                          target="_blank"
-                          class="menu-link">
-                          <div data-i18n="Logistics">Logistics</div>
-                          <div class="badge bg-label-primary fs-tiny rounded-pill ms-auto">Pro</div>
-                        </a>
-                      </li>
-                      <li class="menu-item">
-                        <a
-                          href="https://demos.themeselection.com/sneat-bootstrap-html-admin-template/html/vertical-menu-template/app-academy-dashboard.html"
-                          target="_blank"
-                          class="menu-link">
-                          <div data-i18n="Academy">Academy</div>
-                          <div class="badge bg-label-primary fs-tiny rounded-pill ms-auto">Pro</div>
-                        </a>
-                      </li>
-                    </ul>
                   </li>
         
                   <!-- Layouts -->
@@ -144,17 +100,17 @@ require_once('API/db.php');
         
                     <ul class="menu-sub">
                       <li class="menu-item">
-                        <a href="index.php?admin/template=product/lst_product" class="menu-link">
+                        <a href="index.php?folder=admin&template=product/lst_product" class="menu-link">
                           <div data-i18n="Without menu">Danh sách SP</div>
                         </a>
                       </li>
                       <li class="menu-item">
-                        <a href="index.php?admin/template=model/model_product" class="menu-link">
+                        <a href="index.php?folder=admin&template=model/model_product" class="menu-link">
                           <div data-i18n="Without navbar">Model sản phẩn</div>
                         </a>
                       </li>
                       <li class="menu-item">
-                        <a href="layouts-container.html" class="menu-link">
+                        <a href="index.php?folder=admin&template=lst_img/lst_img_product" class="menu-link">
                           <div data-i18n="Container">Hình ảnh sản phẩm</div>
                         </a>
                       </li>
@@ -190,149 +146,59 @@ require_once('API/db.php');
                   <li class="menu-item">
                     <a href="javascript:void(0);" class="menu-link menu-toggle">
                       <i class="menu-icon tf-icons bx bx-store"></i>
-                      <div data-i18n="Front Pages">Front Pages</div>
-                      <div class="badge bg-label-primary fs-tiny rounded-pill ms-auto">Pro</div>
+                      <div data-i18n="Front Pages">Invoice</div>
                     </a>
                     <ul class="menu-sub">
                       <li class="menu-item">
                         <a
-                          href="https://demos.themeselection.com/sneat-bootstrap-html-admin-template/html/front-pages/landing-page.html"
+                          href="index.php?folder=admin&template=invoice/lst_invoice"
                           class="menu-link"
                           target="_blank">
-                          <div data-i18n="Landing">Landing</div>
+                          <div data-i18n="Landing">Hóa đơn</div>
                         </a>
                       </li>
                       <li class="menu-item">
                         <a
-                          href="https://demos.themeselection.com/sneat-bootstrap-html-admin-template/html/front-pages/pricing-page.html"
+                          href="index.php?folder=admin&template=invoice/confirm_invoice"
                           class="menu-link"
                           target="_blank">
-                          <div data-i18n="Pricing">Pricing</div>
+                          <div data-i18n="Pricing">Chờ xác nhận</div>
                         </a>
                       </li>
                       <li class="menu-item">
                         <a
-                          href="https://demos.themeselection.com/sneat-bootstrap-html-admin-template/html/front-pages/payment-page.html"
+                          href="index.php?folder=admin&template=invoice/pickup_invoice"
                           class="menu-link"
                           target="_blank">
-                          <div data-i18n="Payment">Payment</div>
+                          <div data-i18n="Payment">Chờ lấy hàng</div>
                         </a>
                       </li>
                       <li class="menu-item">
                         <a
-                          href="https://demos.themeselection.com/sneat-bootstrap-html-admin-template/html/front-pages/checkout-page.html"
+                          href="index.php?folder=admin&template=invoice/transport_invoice"
                           class="menu-link"
                           target="_blank">
-                          <div data-i18n="Checkout">Checkout</div>
+                          <div>Đang giao hàng</div>
                         </a>
                       </li>
                       <li class="menu-item">
                         <a
-                          href="https://demos.themeselection.com/sneat-bootstrap-html-admin-template/html/front-pages/help-center-landing.html"
+                          href="index.php?folder=admin&template=invoice/receive_invoice"
                           class="menu-link"
                           target="_blank">
-                          <div data-i18n="Help Center">Help Center</div>
+                          <div >Đã nhận hàng</div>
+                        </a>
+                      </li>
+                      <li class="menu-item">
+                        <a
+                          href="index.php?folder=admin&template=invoice/cancelled_invoice"
+                          class="menu-link"
+                          target="_blank">
+                          <div >Đã Hủy</div>
                         </a>
                       </li>
                     </ul>
                   </li>
-        
-                  <li class="menu-header small text-uppercase">
-                    <span class="menu-header-text">Apps &amp; Pages</span>
-                  </li>
-                  <!-- Apps -->
-                  <li class="menu-item">
-                    <a
-                      href="https://demos.themeselection.com/sneat-bootstrap-html-admin-template/html/vertical-menu-template/app-email.html"
-                      target="_blank"
-                      class="menu-link">
-                      <i class="menu-icon tf-icons bx bx-envelope"></i>
-                      <div data-i18n="Email">Email</div>
-                      <div class="badge bg-label-primary fs-tiny rounded-pill ms-auto">Pro</div>
-                    </a>
-                  </li>
-                  <li class="menu-item">
-                    <a
-                      href="https://demos.themeselection.com/sneat-bootstrap-html-admin-template/html/vertical-menu-template/app-chat.html"
-                      target="_blank"
-                      class="menu-link">
-                      <i class="menu-icon tf-icons bx bx-chat"></i>
-                      <div data-i18n="Chat">Chat</div>
-                      <div class="badge bg-label-primary fs-tiny rounded-pill ms-auto">Pro</div>
-                    </a>
-                  </li>
-                  <li class="menu-item">
-                    <a
-                      href="https://demos.themeselection.com/sneat-bootstrap-html-admin-template/html/vertical-menu-template/app-calendar.html"
-                      target="_blank"
-                      class="menu-link">
-                      <i class="menu-icon tf-icons bx bx-calendar"></i>
-                      <div data-i18n="Calendar">Calendar</div>
-                      <div class="badge bg-label-primary fs-tiny rounded-pill ms-auto">Pro</div>
-                    </a>
-                  </li>
-                  <li class="menu-item">
-                    <a
-                      href="https://demos.themeselection.com/sneat-bootstrap-html-admin-template/html/vertical-menu-template/app-kanban.html"
-                      target="_blank"
-                      class="menu-link">
-                      <i class="menu-icon tf-icons bx bx-grid"></i>
-                      <div data-i18n="Kanban">Kanban</div>
-                      <div class="badge bg-label-primary fs-tiny rounded-pill ms-auto">Pro</div>
-                    </a>
-                  </li>
-                  <!-- Pages -->
-                  <li class="menu-item">
-                    <a href="javascript:void(0);" class="menu-link menu-toggle">
-                      <i class="menu-icon tf-icons bx bx-dock-top"></i>
-                      <div data-i18n="Account Settings">Account Settings</div>
-                    </a>
-                    <ul class="menu-sub">
-                      <li class="menu-item">
-                        <a href="pages-account-settings-account.html" class="menu-link">
-                          <div data-i18n="Account">Account</div>
-                        </a>
-                      </li>
-                      <li class="menu-item">
-                        <a href="pages-account-settings-notifications.html" class="menu-link">
-                          <div data-i18n="Notifications">Notifications</div>
-                        </a>
-                      </li>
-                      <li class="menu-item">
-                        <a href="pages-account-settings-connections.html" class="menu-link">
-                          <div data-i18n="Connections">Connections</div>
-                        </a>
-                      </li>
-                    </ul>
-                  </li>
-                  <li class="menu-item">
-                    <a href="javascript:void(0);" class="menu-link menu-toggle">
-                      <i class="menu-icon tf-icons bx bx-lock-open-alt"></i>
-                      <div data-i18n="Authentications">Authentications</div>
-                    </a>
-                    <ul class="menu-sub">
-                      <li class="menu-item">
-                        <a href="auth-login-basic.html" class="menu-link" target="_blank">
-                          <div data-i18n="Basic">Login</div>
-                        </a>
-                      </li>
-                      <li class="menu-item">
-                        <a href="auth-register-basic.html" class="menu-link" target="_blank">
-                          <div data-i18n="Basic">Register</div>
-                        </a>
-                      </li>
-                      <li class="menu-item">
-                        <a href="auth-forgot-password-basic.html" class="menu-link" target="_blank">
-                          <div data-i18n="Basic">Forgot Password</div>
-                        </a>
-                      </li>
-                    </ul>
-                  </li>
-                  <li class="menu-item">
-                    <a href="javascript:void(0);" class="menu-link menu-toggle">
-                      <i class="menu-icon tf-icons bx bx-cube-alt"></i>
-                      <div data-i18n="Misc">Misc</div>
-                    </a>
                     <ul class="menu-sub">
                       <li class="menu-item">
                         <a href="pages-misc-error.html" class="menu-link">

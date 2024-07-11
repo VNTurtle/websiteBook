@@ -110,12 +110,12 @@ $lst_model = DP::run_query($query_lstmodel, $parameters, $resultType)
                                 <td>
                                     <div class="d-inline-block text-nowrap">
                                         <button class="btn btn-sm btn-icon">
-                                            <a href="index.php?admin/template=model/edit_model_product&id=<?php echo $lst['Id']; ?>">
+                                            <a href="index.php?folder=admin&template=model/edit_model_product&id=<?php echo $lst['Id']; ?>">
                                                 <i class="bx bx-edit"></i>
                                             </a>                                           
                                         </button>
                                         <button class="btn btn-sm btn-icon">
-                                            <a href="index.php?admin/template=model/model_detail_product&id=<?php echo $lst['Id']; ?>">
+                                            <a href="index.php?folder=admin&template=model/model_detail_product&id=<?php echo $lst['Id']; ?>">
                                                 <i class="bx bx-show"></i>
                                             </a>                                           
                                         </button>

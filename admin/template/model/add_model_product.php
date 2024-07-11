@@ -45,6 +45,6 @@ if (is_array($Book) && count($Book) > 0) {
     </form>
     <div class="message"></div>
     <button id="CheckModel" class="btn btn-primary hidden">
-        <a href="index.php?admin/template=model/model_detail_product&id=<?php echo $bookId ?>">Xem Model 3D</a>
+        <a href="index.php?folder=admin&template=model/model_detail_product&id=<?php echo $bookId ?>">Xem Model 3D</a>
     </button>
 </div>

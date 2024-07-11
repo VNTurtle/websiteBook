@@ -101,9 +101,9 @@ function sanitizeFilename($filename)
 }
 
 $modelName = sanitizeFilename(removeAccents($NameBook));
-    if ($book[0]['Model'] != null) {
-    $gltfFilePath = 'assets/model/' . $modelName . $bookId.'/' . $model;
-    $binFilePath = 'assets/model/' . $modelName .$bookId.'/' . $modelBin;
+if ($book[0]['Model'] != null) {
+    $gltfFilePath = 'assets/model/' . $modelName . $bookId . '/' . $model;
+    $binFilePath = 'assets/model/' . $modelName . $bookId . '/' . $modelBin;
 
     // Đọc nội dung của tệp gltf
     $gltfContent = file_get_contents($gltfFilePath);
@@ -111,12 +111,12 @@ $modelName = sanitizeFilename(removeAccents($NameBook));
     // Thay thế đường dẫn "uri":"$modelBin" bằng "uri":"Model/$modelBin"
     if (strpos($gltfContent, 'assets/model/') === false) {
         // Thay thế đường dẫn "uri":"$modelBin" bằng "uri":"assets/model/' . $modelName . '/$modelBin"
-        $modifiedGltfContent = preg_replace('/"uri"\s*:\s*"(?!assets\/model\/)([^"]+)"/', '"uri":"assets/model/' . $modelName .$bookId. '/$1"', $gltfContent);
-    
+        $modifiedGltfContent = preg_replace('/"uri"\s*:\s*"(?!assets\/model\/)([^"]+)"/', '"uri":"assets/model/' . $modelName . $bookId . '/$1"', $gltfContent);
+
         // Ghi lại nội dung đã sửa đổi vào tệp gltf gốc
         file_put_contents($gltfFilePath, $modifiedGltfContent);
     }
-    }
+}
 ?>
 
 <div class="bodywrap">
@@ -175,17 +175,17 @@ $modelName = sanitizeFilename(removeAccents($NameBook));
                         <div class="product-image-block relative">
                             <div class="swiper-container gallery-top ">
                                 <?php
-                                    if ($book[0]['Model'] != null) {
-                                ?> 
-                                <input id="Model" type="hidden" name="model" value="<?php echo $gltfFilePath?>">
-                                <input id="Model_bin" type="hidden"  name="modelbin" value="<?php echo $binFilePath?>">
+                                if ($book[0]['Model'] != null) {
+                                ?>
+                                    <input id="Model" type="hidden" name="model" value="<?php echo $gltfFilePath ?>">
+                                    <input id="Model_bin" type="hidden" name="modelbin" value="<?php echo $binFilePath ?>">
                                 <?php
-                                    }
+                                }
                                 ?>
                                 <div class="swiper-wrapper slider-for" style="justify-content: center;">
                                     <?php
                                     if ($book[0]['Model'] != null) {
-                                    ?> 
+                                    ?>
                                         <div class="swiper-slide swiper-slide-active" href="" style="width: 330px; justify-content: center;">
                                             <canvas id="3D-Book" class="3DImage" height="400" width="400"></canvas>
                                         </div>
@@ -212,7 +212,7 @@ $modelName = sanitizeFilename(removeAccents($NameBook));
                                     if ($book[0]['Model'] != null) {
                                     ?>
                                         <div class="swiper-slide swiper-slide-visible">
-                                            <img src="assets/img/products/ThienSuNhaBenTap2_1.jpg" alt="">
+                                            <img src="assets/img/model_3D.jpg" alt="">
                                         </div>
                                     <?php
                                     }
@@ -266,9 +266,9 @@ $modelName = sanitizeFilename(removeAccents($NameBook));
                                             <div class="custom custom-btn-number">
                                                 <label for="" class="sl section">Số lượng:</label>
                                                 <div class="input-number-product">
-                                                    <button class="btn-num num-1">-</button>
-                                                    <input id="quantityBook" type="text" name="quantity" value="1" maxlength="3" class="form-control prd-quantity">
-                                                    <button class="btn-num num-2">+</button>
+                                                    <button type="button" class="btn-num num-1" id="btn-decrease">-</button>
+                                                    <input id="quantityBook" type="text" name="quantity" value="1" max="<?= $book[0]['Stock']; ?>" maxlength="3" class="form-control prd-quantity">
+                                                    <button type="button" class="btn-num num-2" id="btn-increase">+</button>
                                                 </div>
                                             </div>
                                             <div class="btn-pay button-actions clearFix">
