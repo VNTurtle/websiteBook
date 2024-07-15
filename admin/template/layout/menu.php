@@ -22,7 +22,7 @@ require_once('API/db.php');
         <div class="layout-container">
             <aside id="layout-menu" class="layout-menu menu-vertical menu bg-menu-theme">
                 <div class="app-brand demo">
-                  <a href="index.html" class="app-brand-link">
+                  <a href="index.php?folder=admin" class="app-brand-link">
                     <span class="app-brand-logo demo">
                       <svg
                         width="25"
@@ -115,27 +115,27 @@ require_once('API/db.php');
                         </a>
                       </li>
                       <li class="menu-item">
-                        <a href="layouts-fluid.html" class="menu-link">
+                        <a href="index.php?folder=admin&template=publisher/lst_publisher" class="menu-link">
                           <div data-i18n="Fluid">Nhà xuất bản</div>
                         </a>
                       </li>
                       <li class="menu-item">
-                        <a href="layouts-blank.html" class="menu-link">
+                        <a href="index.php?folder=admin&template=combo/lst_combo_product" class="menu-link">
                           <div data-i18n="Blank">Theo bộ</div>
                         </a>
                       </li>
                       <li class="menu-item">
-                        <a href="layouts-blank.html" class="menu-link">
+                        <a href="index.php?folder=admin&template=size/lst_size" class="menu-link">
                           <div data-i18n="Blank">Size</div>
                         </a>
                       </li>
                       <li class="menu-item">
-                        <a href="layouts-blank.html" class="menu-link">
+                        <a href="index.php?folder=admin&template=type/lst_type" class="menu-link">
                           <div data-i18n="Blank">Loại sản phẩm</div>
                         </a>
                       </li>
                       <li class="menu-item">
-                        <a href="layouts-blank.html" class="menu-link">
+                        <a href="index.php?folder=admin&template=covertype/lst_covertype" class="menu-link">
                           <div data-i18n="Blank">Bìa sách</div>
                         </a>
                       </li>

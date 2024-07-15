@@ -4,7 +4,7 @@ $response = array();
 
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     // Lấy trạng thái đơn hàng mới và ID đơn hàng từ yêu cầu AJAX
-    $orderStatusId = $_POST['order_status'];
+    $orderStatusId = 5;
     $orderId = $_POST['order_id'];
 
     // Câu truy vấn cập nhật

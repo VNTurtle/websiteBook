@@ -163,7 +163,7 @@ if (isset($_GET['selectedProducts'])) {
                                                         <label class="card-radio-label">
                                                             <input type="radio" name="pay-method" id="2" class="card-radio-input">
                                                             <span class="card-radio py-3 text-center text-truncate">
-                                                                <img style="height: 40px;" src="assets/img/payment_2.webp" alt="">
+                                                                <img style="height: 40px;" src="assets/img/vnpay-logo.jpg" alt="">
                                                             </span>
                                                         </label>
                                                     </div>
@@ -173,7 +173,7 @@ if (isset($_GET['selectedProducts'])) {
                                                         <label class="card-radio-label">
                                                             <input type="radio" name="pay-method" id="3" class="card-radio-input">
                                                             <span class="card-radio py-3 text-center text-truncate">
-                                                                <img style="height: 40px;" src="assets/img/payment_3.webp" alt="">
+                                                                <img style="height: 40px;" src="assets/img/momo.webp" alt="">
                                                             </span>
                                                         </label>
                                                     </div>

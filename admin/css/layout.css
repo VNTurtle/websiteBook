@@ -122,4 +122,33 @@
     text-align: center;
     margin-top: 1rem;
   }
-  
+  .dropdown-menu-2 {
+    position: absolute;
+    top: 100%;
+    left: -250px; /* Điều chỉnh vị trí thả xuống theo yêu cầu */
+    background: white;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    border-radius: 5px;
+    width: 300px; /* Điều chỉnh kích thước */
+    z-index: 1000;
+    display: none;
+}
+
+.dropdown-header {
+    padding: 10px;
+    font-weight: bold;
+}
+
+.notification-item {
+    padding: 10px;
+    border-bottom: 1px solid #eaeaea;
+}
+
+.notification-item:last-child {
+    border-bottom: none;
+}
+.badge {
+  font-size: 0.75rem;
+  padding: 0.25em 0.4em;
+  border-radius: 50%;
+}

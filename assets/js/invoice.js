@@ -31,25 +31,52 @@ tabLinks.forEach(function (tabLink, index) {
 });
 
 $(document).ready(function() {
-    $('.btn-cancel-order').click(function() {
-        var orderId = $(this).data('order-id');
+    var modal = $('#cancelModal');
+    var span = $('.close');
+    var cancelButton;
+    
+    // Hiển thị modal khi nhấn nút "Hủy đơn"
+    $(document).on('click', '.btn-cancel-order', function() {
+        cancelButton = $(this);
+        modal.show();
+    });
+
+    // Đóng modal khi nhấn nút close
+    span.on('click', function() {
+        modal.hide();
+    });
+
+    // Đóng modal khi nhấn bên ngoài modal
+    $(window).on('click', function(event) {
+        if (event.target.id == 'cancelModal') {
+            modal.hide();
+        }
+    });
+
+    // Xử lý sự kiện xác nhận hủy
+    $('#confirmCancel').on('click', function() {
+        var reason = $('#cancelReason').val();
+        var orderId = cancelButton.data('order-id');
+
+        if (reason.trim() == '') {
+            alert('Vui lòng nhập lý do hủy.');
+            return;
+        }
 
         $.ajax({
             url: 'API/cance_invoice.php',
-            type: 'POST',
-            data: {
-                order_status: 5, 
-                order_id: orderId
-            },
+            method: 'POST',
+            data: { order_id: orderId, reason: reason },
             success: function(response) {
-                var res = JSON.parse(response);
-                alert(res.message);
-                if (res.status === 'success') {
-                    location.reload();  // Tải lại trang sau khi cập nhật thành công
-                }
+                // Xử lý phản hồi từ server nếu cần
+                console.log('Đã hủy đơn hàng');
+                // Ẩn đơn hàng đã hủy
+                cancelButton.closest('.invoice-detail').remove();
+                // Đóng modal
+                location.reload()
             },
             error: function(xhr, status, error) {
-                alert('An error occurred: ' + xhr.responseText);
+                console.error('Lỗi khi hủy đơn hàng:', error);
             }
         });
     });

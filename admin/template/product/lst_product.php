@@ -1,6 +1,19 @@
 <?php
-$parameters = []; // Các tham số truy vấn (nếu có)
-$resultType = 2; // Loại kết quả truy vấn (2: Fetch All)
+
+$items_per_page = 10; // Số sản phẩm mỗi trang
+$current_page = isset($_GET['page']) ? (int)$_GET['page'] : 1;
+
+$parameters = [];
+$resultType = 2;
+// Truy vấn để đếm tổng số sản phẩm
+$query_count = "SELECT COUNT(*)as sl FROM book";
+$count_product = DP::run_query($query_count, $parameters, 2); // Giả sử `run_query` trả về mảng kết quả
+$total_items = $count_product[0]['sl'];
+$total_pages = ceil($total_items / $items_per_page);
+$offset = ($current_page - 1) * $items_per_page;
+$adjacents = 2;
+
+
 $query_lstproduct = "SELECT b.*, bt.Name AS BookTypeName, s.Name AS SizeName, p.Name AS PublisherName, cv.Name AS CovertypeName, i.Path
                         FROM book b
                         LEFT JOIN Type bt ON b.TypeId = bt.Id
@@ -14,8 +27,9 @@ $query_lstproduct = "SELECT b.*, bt.Name AS BookTypeName, s.Name AS SizeName, p.
                                 SELECT MIN(i2.Id)
                                 FROM `image` i2
                                 WHERE i2.BookId = b.Id
-                            ) LIMIT 10";
-$lst_product = DP::run_query($query_lstproduct, $parameters, $resultType)
+                            ) LIMIT $offset, $items_per_page";
+$lst_product = DP::run_query($query_lstproduct, $parameters, $resultType);
+
 ?>
 
 <link rel="stylesheet" href="admin/css/lst_product.css">
@@ -123,7 +137,7 @@ $lst_product = DP::run_query($query_lstproduct, $parameters, $resultType)
                                         </button>
                                     </div>
                                     <button class="btn btn-secondary add-new btn-primary" tabindex="0" aria-controls="DataTables_Table_0" type="button">
-                                        <a href="index.php?folder=admin&template=product/add_product" style="color: #fff;"> 
+                                        <a href="index.php?folder=admin&template=product/add_product" style="color: #fff;">
                                             <i class="bx bx-plus me-0 me-sm-1"></i>
                                             <span class="d-none d-sm-inline-block">Add Product</span>
                                         </a>
@@ -138,7 +152,6 @@ $lst_product = DP::run_query($query_lstproduct, $parameters, $resultType)
                             <th>product</th>
                             <th>category</th>
                             <th>Author</th>
-                            <th>sku</th>
                             <th>price</th>
                             <th>qty</th>
                             <th>status</th>
@@ -151,7 +164,7 @@ $lst_product = DP::run_query($query_lstproduct, $parameters, $resultType)
                         ?>
                             <tr class="odd">
                                 <td>
-                                    <?php echo $key + 1 ?>
+                                    <?= $offset + $key + 1 ?>
                                 </td>
                                 <td class="sorting_1">
                                     <div class="d-flex justify-content-start align-items-center product-name">
@@ -172,13 +185,9 @@ $lst_product = DP::run_query($query_lstproduct, $parameters, $resultType)
                                     </span>
                                 </td>
                                 <td>
-                                    <span class="text-truncate align-items-center">
+                                    <span class="text-truncate align-items-center" style="white-space: normal !important;
+                                                                                            overflow-wrap: break-word;">
                                         <?php echo $lst['Author'] ?>
-                                    </span>
-                                </td>
-                                <td>
-                                    <span class="text-truncate align-items-center">
-                                        <?php echo $lst['SKU'] ?>
                                     </span>
                                 </td>
                                 <td>
@@ -193,7 +202,7 @@ $lst_product = DP::run_query($query_lstproduct, $parameters, $resultType)
                                 </td>
                                 <td>
                                     <label>
-                                        <input class="toggle-checkbox" type="checkbox" <?php echo ($lst['Status'] == 1) ? 'checked' : ''; ?>>
+                                        <input class="toggle-checkbox" type="checkbox" data-book-id="<?php echo $lst['Id']; ?>" <?php echo ($lst['Status'] == 1) ? 'checked' : ''; ?>>
                                         <div class="toggle-slot">
                                             <div class="sun-icon-wrapper">
                                                 <div class="iconify sun-icon" data-icon="feather-sun" data-inline="false"></div>
@@ -210,12 +219,12 @@ $lst_product = DP::run_query($query_lstproduct, $parameters, $resultType)
                                         <button class="btn btn-sm btn-icon">
                                             <a href="index.php?folder=admin&template=product/edit_product&id=<?php echo $lst['Id'] ?>">
                                                 <i class="bx bx-edit"></i>
-                                            </a>                                         
+                                            </a>
                                         </button>
                                         <button class="btn btn-sm btn-icon">
                                             <a href="index.php?folder=admin&template=product/product_detail&id=<?php echo $lst['Id'] ?>">
                                                 <i class="bx bx-show"></i>
-                                            </a>                                   
+                                            </a>
                                         </button>
                                     </div>
                                 </td>
@@ -227,32 +236,64 @@ $lst_product = DP::run_query($query_lstproduct, $parameters, $resultType)
                 </table>
                 <div class="row mx-2">
                     <div class="col-sm-12 col-md-6 shows-stt">
-                        <div class="data-info">Hiển thị từ 1 đến 10 của 100 sản phẩn</div>
+                        <div class="data-info">Hiển thị từ <?php echo $offset + 1 ?> đến <?php echo $offset + count($lst_product) ?> của <?php echo $total_items ?> sản phẩm</div>
                     </div>
                     <div class="col-sm-12 col-md-6 show-page">
-                        <nav class="page-book" aria-label="Page navigation example " style="margin-top: 12px;">
+                        <nav class="page-book" aria-label="Page navigation example" style="margin-top: 12px;">
                             <ul class="pagination">
-                                <li class="page-item">
-                                    <a class="page-link" href="#" aria-label="Previous">
-                                        <span aria-hidden="true">&laquo;</span>
-                                        <span class="sr-only">Previous</span>
-                                    </a>
-                                </li>
-                                <li class="page-item"><a class="page-link" href="#">1</a></li>
-                                <li class="page-item"><a class="page-link" href="#">2</a></li>
-                                <li class="page-item"><a class="page-link" href="#">3</a></li>
-                                <li class="page-item">
-                                    <a class="page-link" href="#" aria-label="Next">
-                                        <span aria-hidden="true">&raquo;</span>
-                                        <span class="sr-only">Next</span>
-                                    </a>
-                                </li>
+                                <?php if ($current_page > 1) : ?>
+                                    <li class="page-item">
+                                        <a class="page-link" href="index.php?folder=admin&template=product/lst_product&page=<?php echo $current_page - 1 ?>" aria-label="Previous">
+                                            <span aria-hidden="true">&laquo;</span>
+                                        </a>
+                                    </li>
+                                <?php endif; ?>
+
+                                <?php
+                                // Hiển thị trang đầu
+                                if ($current_page > ($adjacents + 1)) {
+                                    echo '<li class="page-item"><a class="page-link" href="index.php?folder=admin&template=product/lst_product&page=1">1</a></li>';
+                                    if ($current_page > ($adjacents + 2)) {
+                                        echo '<li class="page-item"><span class="page-link">...</span></li>';
+                                    }
+                                }
+
+                                // Hiển thị các trang xung quanh trang hiện tại
+                                $start = max(1, $current_page - $adjacents);
+                                $end = min($total_pages, $current_page + $adjacents);
+                                for ($i = $start; $i <= $end; $i++) {
+                                    if ($i == $current_page) {
+                                        echo '<li class="page-item active"><span class="page-link">' . $i . '</span></li>';
+                                    } else {
+                                        echo '<li class="page-item"><a class="page-link" href="index.php?folder=admin&template=product/lst_product&page=' . $i . '">' . $i . '</a></li>';
+                                    }
+                                }
+
+                                // Hiển thị trang cuối
+                                if ($current_page < ($total_pages - $adjacents)) {
+                                    if ($current_page < ($total_pages - $adjacents - 1)) {
+                                        echo '<li class="page-item"><span class="page-link">...</span></li>';
+                                    }
+                                    echo '<li class="page-item"><a class="page-link" href="index.php?folder=admin&template=product/lst_product&page=' . $total_pages . '">' . $total_pages . '</a></li>';
+                                }
+
+                                if ($current_page < $total_pages) : ?>
+                                    <li class="page-item">
+                                        <a class="page-link" href="index.php?folder=admin&template=product/lst_product&page=<?php echo $current_page + 1 ?>" aria-label="Next">
+                                            <span aria-hidden="true">&raquo;</span>
+                                        </a>
+                                    </li>
+                                <?php endif; ?>
                             </ul>
                         </nav>
+
                     </div>
                 </div>
+
             </div>
+
         </div>
-
-
     </div>
+
+
+</div>

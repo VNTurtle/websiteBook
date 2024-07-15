@@ -1,8 +1,8 @@
 <?php
 $parameters = []; // Các tham số truy vấn (nếu có)
 $resultType = 2; // Loại kết quả truy vấn (2: Fetch All)
-$query_size = "SELECT * FROM `size`  LIMIT 10";
-$lst_size = DP::run_query($query_size, $parameters, $resultType)
+$query_lstpls = "SELECT * FROM `publisher` LIMIT 10";
+$lst_publisher = DP::run_query($query_lstpls, $parameters, $resultType)
 ?>
 
 <link rel="stylesheet" href="admin/css/model_product.css">
@@ -10,7 +10,7 @@ $lst_size = DP::run_query($query_size, $parameters, $resultType)
 <div class="content-wrapper">
     <div class="container-xxl flex-grow-1 container-p-y">
         <h4 class="py-3 mb-4">
-            <span class="text-muted fw-light">Sản Phẩm /</span> Kích thước
+            <span class="text-muted fw-light">Sản Phẩm /</span> Nhà xuất bản
         </h4>
         <!-- Model List Table -->
         <div class="card">
@@ -30,7 +30,7 @@ $lst_size = DP::run_query($query_size, $parameters, $resultType)
                                     <button class="btn btn-secondary add-new btn-primary" tabindex="0" aria-controls="DataTables_Table_0" type="button">
                                         <span>
                                             <i class="bx bx-plus me-0 me-sm-1"></i>
-                                            <span class="d-none d-sm-inline-block">Add Kích thước</span>
+                                            <span class="d-none d-sm-inline-block">Add Publisher</span>
                                         </span>
                                     </button>
                                 </div>
@@ -47,7 +47,7 @@ $lst_size = DP::run_query($query_size, $parameters, $resultType)
                     </thead>
                     <tbody>
                         <?php
-                        foreach ($lst_size as $key => $lst) {
+                        foreach ($lst_publisher as $key => $lst) {
                         ?>
                             <tr class="odd">
                                 <td>
@@ -55,7 +55,7 @@ $lst_size = DP::run_query($query_size, $parameters, $resultType)
                                 </td>
                                 <td>
                                     <span class="text-truncate d-flex align-items-center">
-                                        <?php echo $lst['Name'] ?> cm
+                                        <?php echo $lst['Name'] ?>
                                     </span>
                                 </td>
                                 <td>

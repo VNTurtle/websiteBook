@@ -170,7 +170,7 @@ require_once('template/layout/layout.php');
                                 </a>
                             </li>
                             <li class="nav-item has-mega">
-                                <a href="index.php?template=products" class="caret-down">Sản phẩm</a>
+                                <a href="index.php?template=product/lst_product" class="caret-down">Sản phẩm</a>
                                 <div class="mega-content">
                                     <div class="lst-Type-main">
                                         <ul class="level0">
@@ -179,7 +179,7 @@ require_once('template/layout/layout.php');
 
                                             ?>
                                                 <li class="level1 item parent">
-                                                    <a href="index.php?template=product/lst_product&lst_id=<?php echo $lst_types['Id'] ?>" class="hmega"><?php echo $lst_type['Name'] ?></a>
+                                                    <a href="index.php?template=product/lst_product&lst_id=<?= $lst_type['Id'] ?>" class="hmega"><?php echo $lst_type['Name'] ?></a>
                                                     <ul class="level1">
 
                                                         <?php

@@ -3,7 +3,12 @@ if (isset($_GET['id'])) {
     $bookId = htmlspecialchars($_GET['id']);
 }
 
+<<<<<<< Updated upstream
 $query = "SELECT b.*, m.Model, m.ModelBin, bt.Name AS BookTypeName, s.Name AS SizeName, p.Name AS PublisherName, cv.Name AS CovertypeName
+=======
+
+$query = "SELECT b.*, m.Model, m.ModelBin,m.Alpha,m.Beta,m.Radius,m.Target_x,m.Target_y,m.Target_z, bt.Name AS BookTypeName, s.Name AS SizeName, p.Name AS PublisherName, cv.Name AS CovertypeName
+>>>>>>> Stashed changes
 FROM book b
 LEFT JOIN model m ON b.Id = m.BookId
 JOIN Type bt ON b.TypeId = bt.Id
@@ -22,6 +27,20 @@ if (count($book) > 0) {
     $modelBin = $book[0]['ModelBin'];
     $comboBookId = $book[0]['ComboBookId'];
     $typeId = $book[0]['TypeId'];
+    $cameraState = [
+        'alpha' => $book[0]['Alpha'],
+        'beta' => $book[0]['Beta'],
+        'radius' => $book[0]['Radius'],
+        'target' => [
+            'x' => $book[0]['Target_x'],
+            'y' => $book[0]['Target_y'],
+            'z' => $book[0]['Target_z']
+        ]
+    ];
+    // Gửi dữ liệu cameraState từ PHP xuống JavaScript
+    echo "<script>";
+    echo "var cameraState2 = " . json_encode($cameraState) . ";";
+    echo "</script>";
 } else {
     echo "Không tìm thấy kết quả.";
     $model = null;
@@ -466,15 +485,17 @@ if ($book[0]['Model'] != null) {
                         <div class="productRelate product-lq">
                             <div class="group-title-index">
                                 <h3 class="title">
-                                    <a class="title-name" href=""><?php
-                                                                    if ($comboBookId != null) {
-                                                                        echo "Theo Combo";
-                                                                    } else {
-                                                                        echo "Cùng thể loại";
-                                                                    } ?>
-                                        <img src="assets/img/book-icon.png" alt="">
-                                    </a>
-                                    <span class=""></span>
+                                    <?php
+                                        if ($comboBookId != null) {
+                                            echo
+                                            '<a class="title-name" href="">Theo combo<img src="assets/img/book-icon.png" alt=""></a>
+                                            <span class=""></span>';
+                                        } else {
+                                        echo
+                                        '<a class="title-name" href="">Theo Loại<img src="assets/img/book-icon.png" alt=""></a>
+                                        <span class=""></span>';
+                                    } ?>
+                                                           
                                 </h3>
                             </div>
                             <div class="product-flash-swiper swiper-container">
@@ -485,10 +506,17 @@ if ($book[0]['Model'] != null) {
                                     ?>
                                         <div class="swiper-slider">
                                             <div class="card">
+<<<<<<< Updated upstream
                                                 <a class="card-img" href="index.php?template=product/product_detail&id=<?php echo $lst['Id'] ?>">
                                                     <img src="assets/img/Products/<?php echo $lst['Path'] ?>" alt="">
                                                 </a>
                                                 <a class="card-info" href="index.php?template=product/product_detail&id=<?php echo $lst['Id'] ?>">
+=======
+                                                <a class="card-img" href="index.php?template=product/product_detail&id=<?php echo $lst['Id']; ?>">
+                                                    <img src="assets/img/Products/<?php echo $lst['Path'] ?>" alt="">
+                                                </a>
+                                                <a class="card-info" href="index.php?template=product/product_detail&id=<?php echo $lst['Id']; ?>">
+>>>>>>> Stashed changes
                                                     <p class="text-title" title="<?php echo $lst['Name'] ?>"><?php echo $lst['Name'] ?></p>
                                                 </a>
                                                 <div class="card-footer">
@@ -527,10 +555,12 @@ if ($book[0]['Model'] != null) {
                                     ?>
                                         <div class="swiper-slider">
                                             <div class="card">
-                                                <div class="card-img"><img src="assets/img/Products/<?php echo $lst['Path'] ?>" alt=""></div>
-                                                <div class="card-info">
+                                                <a class="card-img"  href="index.php?template=product/product_detail&id=<?php echo $lst['Id']; ?>">
+                                                    <img src="assets/img/Products/<?php echo $lst['Path'] ?>" alt="">
+                                                </a>
+                                                <a class="card-info"  href="index.php?template=product/product_detail&id=<?php echo $lst['Id']; ?>">
                                                     <p class="text-title" title="<?php echo $lst['Name'] ?>"><?php echo $lst['Name'] ?></p>
-                                                </div>
+                                                 </a>
                                                 <div class="card-footer">
                                                     <span class="text-title"><?php echo $lst['Price'] ?> đ</span>
                                                     <div class="card-button">

@@ -21,10 +21,10 @@ $otpFromSession = $_SESSION["OTP"];
     
         
         if ($ISInvoice > 0) {
-        $queryInvoiceDetail = "INSERT INTO `invoicedetail` (`Parent_code`, `BookId`, `UserId`, `UnitPrice`, `Quantity`, `OrderStatusId`, `Status`) VALUES (?, ?, ?, ?, ?, ?, ?)";
+        $queryInvoiceDetail = "INSERT INTO `invoicedetail` (`Parent_code`, `BookId`, `UserId`, `UnitPrice`, `Quantity`, `OrderStatusId`) VALUES (?, ?, ?, ?, ?, ?)";
         
         foreach ($invoiceDetails as $invoiceDetail) {
-            $parameters = [$invoiceDetail['parent_code'], $invoiceDetail['bookId'], $invoiceDetail['userId'], $invoiceDetail['price'], $invoiceDetail['quantity'], $invoiceDetail['orderStatusId'], $invoiceDetail['status']];
+            $parameters = [$invoiceDetail['parent_code'], $invoiceDetail['bookId'], $invoiceDetail['userId'], $invoiceDetail['price'], $invoiceDetail['quantity'], $invoiceDetail['orderStatusId']];
             $ISInvoiceDetail = DP::run_query($queryInvoiceDetail, $parameters, 1);
     
             if ($ISInvoiceDetail <= 0) {

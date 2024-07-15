@@ -31,7 +31,24 @@ if(binName!=null){
         }, {
             passive: false
         });
-    
+        var cameraStateFromMySQL = {
+            alpha: parseFloat(cameraState2.alpha.replace(/'/g, '')),
+            beta: parseFloat(cameraState2.beta.replace(/'/g, '')),
+            radius: parseFloat(cameraState2.radius.replace(/'/g, '')),
+            target: {
+                x: parseFloat(cameraState2.target.x.replace(/'/g, '')),
+                y: parseFloat(cameraState2.target.y.replace(/'/g, '')),
+                z: parseFloat(cameraState2.target.z.replace(/'/g, ''))
+            }
+        };
+        console.log(cameraStateFromMySQL);
+        // Sử dụng dữ liệu từ MySQL để cập nhật camera
+        if (cameraStateFromMySQL) {
+            camera.alpha = cameraStateFromMySQL.alpha;
+            camera.beta = cameraStateFromMySQL.beta;
+            camera.radius = cameraStateFromMySQL.radius;
+            camera.setTarget(new BABYLON.Vector3(cameraStateFromMySQL.target.x, cameraStateFromMySQL.target.y, cameraStateFromMySQL.target.z));
+        }
         // Tạo ánh sáng
         var light = new BABYLON.HemisphericLight('light', new BABYLON.Vector3(0, 1, 0), scene);
     

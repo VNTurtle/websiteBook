@@ -13,12 +13,13 @@
         if (isset($product['code'])) {
             // Đây là invoice
             $invoice = $product;
+            
         } else {
             // Đây là invoicedetail
             $invoicedetail[] = $product;
         }   
     }
-
+    var_dump($invoice);
     } else {
        
     }

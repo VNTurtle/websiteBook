@@ -3,7 +3,7 @@
 // Kiểm tra xem session 'Id' có giá trị hay không
 if (isset($_SESSION['Id'])) {
     $userId = $_SESSION['Id'];
-    $query = "SELECT c.Id AS CartId, c.UserId, b.*, c.Quantity, i.Path
+    $query = "SELECT c.UserId, b.*, c.Quantity, i.Path
             FROM Cart c 
             JOIN Account a ON c.UserId = a.Id 
             JOIN Book b ON c.BookId = b.Id 
@@ -49,10 +49,11 @@ if (isset($_SESSION['Id'])) {
                 <div class="book-cart-left">
                     <?php
                     if (isset($_SESSION['Id'])) {
+                        if($Lst_Cart>0){
                         foreach ($Lst_Cart as $key => $cart_item) {
                             $total_price = $cart_item['Price'] * $cart_item['Quantity'];
-                    ?>
-                            <div class="item-book-cart" data-id="<?= $cart_item['Id']; ?>" data-price="<?= $cart_item['Price']; ?>">
+                        ?>
+                            <div class="item-book-cart"  data-price="<?= $cart_item['Price']; ?>">
                                 <div class="checkbox-book-cart">
                                     <input id="<?php echo $cart_item['Id'] ?>" name="checkbox_book-1919" class="checkbox-add-cart" type="checkbox" data-price="<?php echo $cart_item['Price'] ?>" data-name="<?php echo $cart_item['Name']; ?>" data-img="<?php echo $cart_item['Path']; ?>" data-quantity="<?php echo $cart_item['Quantity']; ?>" data-price2="<?php echo $total_price ?>" />
                                 </div>
@@ -96,7 +97,7 @@ if (isset($_SESSION['Id'])) {
                             </div>
                             <div class="border-book"></div>
                     <?php
-                        }
+                        }}
                     }
                     ?>
                 </div>
