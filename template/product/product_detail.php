@@ -3,12 +3,7 @@ if (isset($_GET['id'])) {
     $bookId = htmlspecialchars($_GET['id']);
 }
 
-<<<<<<< Updated upstream
-$query = "SELECT b.*, m.Model, m.ModelBin, bt.Name AS BookTypeName, s.Name AS SizeName, p.Name AS PublisherName, cv.Name AS CovertypeName
-=======
-
 $query = "SELECT b.*, m.Model, m.ModelBin,m.Alpha,m.Beta,m.Radius,m.Target_x,m.Target_y,m.Target_z, bt.Name AS BookTypeName, s.Name AS SizeName, p.Name AS PublisherName, cv.Name AS CovertypeName
->>>>>>> Stashed changes
 FROM book b
 LEFT JOIN model m ON b.Id = m.BookId
 JOIN Type bt ON b.TypeId = bt.Id
@@ -506,17 +501,10 @@ if ($book[0]['Model'] != null) {
                                     ?>
                                         <div class="swiper-slider">
                                             <div class="card">
-<<<<<<< Updated upstream
                                                 <a class="card-img" href="index.php?template=product/product_detail&id=<?php echo $lst['Id'] ?>">
                                                     <img src="assets/img/Products/<?php echo $lst['Path'] ?>" alt="">
                                                 </a>
                                                 <a class="card-info" href="index.php?template=product/product_detail&id=<?php echo $lst['Id'] ?>">
-=======
-                                                <a class="card-img" href="index.php?template=product/product_detail&id=<?php echo $lst['Id']; ?>">
-                                                    <img src="assets/img/Products/<?php echo $lst['Path'] ?>" alt="">
-                                                </a>
-                                                <a class="card-info" href="index.php?template=product/product_detail&id=<?php echo $lst['Id']; ?>">
->>>>>>> Stashed changes
                                                     <p class="text-title" title="<?php echo $lst['Name'] ?>"><?php echo $lst['Name'] ?></p>
                                                 </a>
                                                 <div class="card-footer">
