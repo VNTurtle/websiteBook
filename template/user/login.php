@@ -23,9 +23,17 @@ if (isset($_REQUEST['btn_Login'])) {
             $_SESSION['Id'] = $account[0]['Id'];
             $_SESSION['email'] = $account[0]['Email'];
 
-            // Chuyển hướng đến trang dashboard hoặc trang chủ
-            header("Location: index.php");
-            exit;
+            // // Chuyển hướng đến trang dashboard hoặc trang chủ
+            // header("Location: index.php");
+            if (isset($_GET['idsp'])) {
+              $productId = $_GET['idsp'];
+              header("Location: index.php?template=product/product_detail&id=" . $productId);
+              exit;
+          } else {
+              header("Location: index.php");
+              exit;
+          }
+            // exit;
         } else {
             $notLogin = "Email and password are incorrect.";
         }

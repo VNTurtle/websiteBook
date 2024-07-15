@@ -46,26 +46,28 @@ require_once('template/layout/layout.php');
                         <img class="Logo-header" src="assets/img/logo-bookstore-header.jpg" alt="Logo">
                     </a>
                 </div>
-                <form class="col-lg-4 search-header" method="get" action="index.php?template/product=search.">
+                <form class="col-lg-4 search-header" method="get">
                     <div class="InputContainer">
+                        <input type="hidden" name="template" value="search/search">
                         <input placeholder="Search.." id="timkiem" class="input" name="timkiem" type="text" onkeyup="toggleButton()">
-                        <button class="btn btn-search" style="border-color: #fff; border-radius: 25px; margin: 13px; color: #09bfff;" type="submit" id="btn" name="btn" disabled>
+                        <button class="btn btn-search" style="border-color: #fff; border-radius: 25px; margin: 13px; color: #09bfff;" type="submit" id="btn">
                             <i class="fa fa-search"></i>
                         </button>
                     </div>
                 </form>
+
                 <?php
-                if (isset($_GET['btn']) && isset($_GET['timkiem'])) {
+                if (isset($_GET['timkiem'])) {
                     $noidung = $_GET['timkiem'];
                 } else {
                     $noidung = false;
                 }
                 if ($noidung) {
-
                     $querySearch = "SELECT * FROM book WHERE Name LIKE '%$noidung%' ";
                     $ketqua = DP::run_query($querySearch, $parameters, $resultType);
                 }
                 ?>
+
                 <div class="col-lg-5 header-control">
                     <ul class="ul-control">
 

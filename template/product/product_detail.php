@@ -1,8 +1,7 @@
 <?php
 if (isset($_GET['id'])) {
-    $bookId = $_GET['id'];
+    $bookId = htmlspecialchars($_GET['id']);
 }
-
 
 $query = "SELECT b.*, m.Model, m.ModelBin, bt.Name AS BookTypeName, s.Name AS SizeName, p.Name AS PublisherName, cv.Name AS CovertypeName
 FROM book b
@@ -457,6 +456,11 @@ if ($book[0]['Model'] != null) {
                                         </div>
                                     </div>
                                 </div>
+                                <div id="tab3" class="tab-content">
+                                    <div class="cmt">
+                                        <iframe id="commentIframe" src="index.php?template=comment/comment&idsp=<?php echo htmlspecialchars($bookId); ?>" frameborder="0" width="100%" height="750px" style="overflow-x: hidden;" scrolling="no"></iframe>
+                                    </div>
+                                </div>
                             </div>
                         </div>
                         <div class="productRelate product-lq">
@@ -481,10 +485,10 @@ if ($book[0]['Model'] != null) {
                                     ?>
                                         <div class="swiper-slider">
                                             <div class="card">
-                                                <a class="card-img" href="Book.php?id=<?php echo $lst['Id'] ?>">
+                                                <a class="card-img" href="index.php?template=product/product_detail&id=<?php echo $lst['Id'] ?>">
                                                     <img src="assets/img/Products/<?php echo $lst['Path'] ?>" alt="">
                                                 </a>
-                                                <a class="card-info" href="Book.php?id=<?php echo $lst['Id'] ?>">
+                                                <a class="card-info" href="index.php?template=product/product_detail&id=<?php echo $lst['Id'] ?>">
                                                     <p class="text-title" title="<?php echo $lst['Name'] ?>"><?php echo $lst['Name'] ?></p>
                                                 </a>
                                                 <div class="card-footer">
